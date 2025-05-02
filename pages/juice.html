@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicy Junction - Juices</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: #f8f8f8;
+        }
+
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #555;
+        }
+
+        .fruit-salad-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .fruit-salad-button:hover {
+            background: #555;
+        }
+    
+        .juice-card {
+            display: flex;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .juice-info {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .juice-name {
+            font-size: 24px;
+            color: #333;
+            margin: 0 0 15px 0;
+        }
+
+        .juice-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .juice-image-container {
+            width: 300px;
+            position: relative;
+        }
+
+        .juice-price{
+            font-size: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .juice-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .quantity-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity-btn:hover {
+            background: #555;
+        }
+
+        .quantity-display {
+            font-size: 18px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Fixed Cart Button Styles */
+        .fixed-cart-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #7f7979;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+        }
+
+        .fixed-cart-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .cart-text {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">← Back</a>
+    <a href="fruit-salad.html" class="fruit-salad-button">Fruit Salads</a>
+    
+    <div class="header">
+        <h1>Our Fresh Juices</h1>
+    </div>
+
+    <div class="content">
+        <!-- Orange Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Orange Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Freshly squeezed oranges bursting with natural sweetness and vitamin C. Our signature orange juice is made daily using only the finest, hand-picked oranges to ensure the perfect balance of flavor and refreshment.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/Orange.jpeg" alt="Orange Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apple Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Apple Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Pure and crisp apple juice made from fresh, locally sourced apples. A perfect blend of sweet and tart flavors that makes for a refreshing drink any time of the day.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/apple.jpg" alt="Apple Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mango Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Mango Juice</h2>
+b                 <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Smooth and tropical mango juice made from perfectly ripened mangoes. Experience the rich, sweet taste of summer in every sip of this exotic refreshment.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/mango.jpg" alt="Mango Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Watermelon Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Watermelon Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Cool and refreshing watermelon juice that captures summer in every sip. Made from perfectly ripe watermelons for maximum sweetness and hydration.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/watermelon.jpg" alt="Watermelon Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pineapple Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Pineapple Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Tropical pineapple juice bursting with exotic flavors. A perfect balance of sweet and tangy notes that transport you to a paradise island.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/pineapple.jpg" alt="Pineapple Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grape Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Grape Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Sweet and sophisticated grape juice made from premium grapes. Rich in antioxidants and natural sweetness.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/grapes.jpg" alt="Grape Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strawberry Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Strawberry Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Vibrant strawberry juice made from fresh, ripe berries. A sweet and refreshing drink packed with vitamin C and natural goodness.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/Strawberry.jpg" alt="Strawberry Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pomegranate Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Pomegranate Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Rich and luxurious pomegranate juice loaded with antioxidants. A perfect blend of sweet and tart flavors.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/pomagranate.jpg" alt="Pomegranate Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kiwi Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Kiwi Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Exotic kiwi juice with a unique taste profile. Refreshing and packed with vitamins and minerals.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/kiwi.jpeg" alt="Kiwi Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Peach Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Peach Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Sweet and aromatic peach juice that tastes like summer. Made from perfectly ripened peaches for the best natural flavor.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/peach.jpeg" alt="Peach Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lychee Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Lychee Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Exotic lychee juice with a delicate floral aroma. A refreshing tropical drink with subtle sweetness.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/lychee.jpg" alt="Lychee Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Passion Fruit Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Passion Fruit Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Exotic passion fruit juice with a perfect balance of sweet and tart flavors. A tropical delight that's both refreshing and energizing.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/juicing-passion-fruit-2.jpg" alt="Passion Fruit Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guava Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Guava Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Tropical guava juice rich in vitamins and natural sweetness. A refreshing drink with a unique tropical flavor profile.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/guava.jpg" alt="Guava Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blackberry Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Blackberry Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Rich and vibrant blackberry juice packed with antioxidants. A perfect blend of sweet and tart berry flavors.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/Blackberry.jpg" alt="Blackberry Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coconut Water Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Coconut Water</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Pure and natural coconut water, straight from young coconuts. Nature's perfect hydration drink with essential electrolytes.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/coconut.jpeg" alt="Coconut Water" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carrot Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Carrot Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Nutritious carrot juice rich in beta-carotene and vitamins. A healthy and refreshing drink that's naturally sweet.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/carrot.jpg" alt="Carrot Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cucumber Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Cucumber Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Light and refreshing cucumber juice. Perfect for hot days and detox routines, with a clean and crisp taste.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/cucumber.webp" alt="Cucumber Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beetroot Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Beetroot Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Vibrant beetroot juice packed with nutrients and natural sweetness. A healthy drink that's both delicious and nutritious.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/Beet.jpg" alt="Beetroot Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mixed Berry Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Mixed Berry Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">A delightful blend of various berries creating a perfect harmony of sweet and tart flavors. Rich in antioxidants and natural goodness.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/mixed berries.jpg" alt="Mixed Berry Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ginger Lemon Juice Card -->
+        <div class="juice-card">
+            <div class="juice-info">
+                <h2 class="juice-name">Fresh Ginger Lemon Juice</h2>
+                <div class="juice-price">Rs. 50.00</div>
+                <p class="juice-description">Zesty and invigorating blend of fresh ginger and lemon. A perfect immunity booster with a spicy kick.</p>
+            </div>
+            <div class="juice-image-container">
+                <img src="../juices_images/Lemon.jpg" alt="Fresh Ginger Lemon Juice" class="juice-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateQuantity(button, change) {
+            const quantityDisplay = button.parentElement.querySelector('.quantity-display');
+            let quantity = parseInt(quantityDisplay.textContent);
+            quantity = Math.max(0, quantity + change);
+            quantityDisplay.textContent = quantity;
+
+            // Get the juice name
+            const juiceCard = button.closest('.juice-card');
+            const juiceName = juiceCard.querySelector('.juice-name').textContent;
+
+            // Update cart if quantity > 0
+            if (quantity > 0) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.name === juiceName);
+
+                if (existingItem) {
+                    existingItem.quantity = quantity;
+                } else {
+                    cart.push({ name: juiceName, quantity: quantity });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Initialize cart count when page loads
+        updateCartCount();
+    </script>
+</body>
+</html>
+
+<!-- Fixed Cart Button -->
+<a href="cart.html" class="fixed-cart-button">
+    <img src="../Shopping Cart.png" alt="Cart" class="cart-icon">
+    <span class="cart-text">CART</span>
+</a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicy Junction</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-image {
+            width: 150px;
+            height: 150px;
+            animation: rotate 2s ease-in-out forwards;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 2.5em;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .main-content {
+            display: none;
+            padding: 50px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .card {
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img src="Lemon Juice (HD).png" alt="Loading" class="loading-image">
+        <div class="loading-text">Juicy Junction</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="cards-container">
+            <!-- Juice Card -->
+            <a href="pages/juice.html" style="text-decoration: none;">
+                <div class="card">
+                    <img src="Orange Juice.png" alt="Juice" class="card-image">
+                    <div class="card-content">
+                        <h2 class="card-title">Juice</h2>
+                        <p class="card-description">Fresh and natural juices made from the finest fruits.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Fruit Salad Card -->
+            <a href="pages/fruit-salad.html" style="text-decoration: none;">
+                <div class="card">
+                    <img src="3D Fruit Salad Bowl In A Black Bowl.png" alt="Fruit Salad" class="card-image">
+                    <div class="card-content">
+                        <h2 class="card-title">Fruit Salad</h2>
+                        <p class="card-description">Delicious and healthy fruit salads with seasonal fruits.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Hide loading screen and show main content after animation
+        setTimeout(() => {
+            document.querySelector('.loading-screen').style.display = 'none';
+            document.querySelector('.main-content').style.display = 'block';
+        }, 3000); // 3 seconds delay
+    </script>
+</body>
+</html>

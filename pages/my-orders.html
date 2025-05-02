@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicy Junction - My Orders</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: #f8f8f8;
+        }
+
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #555;
+        }
+
+        .orders-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .order-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .order-datetime {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .order-price {
+            font-size: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <a href="cart.html" class="back-button">← Back to Cart</a>
+    
+    <div class="header">
+        <h1>My Orders</h1>
+    </div>
+
+    <div class="content">
+        <!-- Orders in Progress Section -->
+        <div class="orders-section">
+            <h2 class="section-title">Orders in Progress</h2>
+            <div id="in-progress-orders">
+                <!-- Orders in progress will be populated here -->
+            </div>
+        </div>
+
+        <!-- Completed Orders Section -->
+        <div class="orders-section">
+            <h2 class="section-title">Completed Orders</h2>
+            <div id="completed-orders">
+                <!-- Completed orders will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+        }
+
+        function displayOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const inProgressContainer = document.getElementById('in-progress-orders');
+            const completedContainer = document.getElementById('completed-orders');
+            
+            let inProgressHTML = '';
+            let completedHTML = '';
+
+            orders.forEach(order => {
+                const orderHTML = `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-number">Order #${order.orderNumber}</div>
+                            <div class="order-datetime">${formatDateTime(order.timestamp)}</div>
+                        </div>
+                        <div class="order-price">Total: $${order.total.toFixed(2)}</div>
+                    </div>
+                `;
+
+                if (order.status === 'completed') {
+                    completedHTML += orderHTML;
+                } else {
+                    inProgressHTML += orderHTML;
+                }
+            });
+
+            inProgressContainer.innerHTML = inProgressHTML || '<div class="no-orders">No orders in progress</div>';
+            completedContainer.innerHTML = completedHTML || '<div class="no-orders">No completed orders</div>';
+        }
+
+        // Display orders when page loads
+        displayOrders();
+    </script>
+</body>
+</html>

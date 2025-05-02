@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicy Junction - Fruit Salads</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: #f8f8f8;
+        }
+
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #555;
+        }
+
+        .juice-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .juice-button:hover {
+            background: #555;
+        }
+
+        .salad-card {
+            display: flex;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .salad-info {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .salad-name {
+            font-size: 24px;
+            color: #333;
+            margin: 0 0 15px 0;
+        }
+
+        .salad-price {
+            font-size: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .salad-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .salad-image-container {
+            width: 300px;
+            position: relative;
+        }
+
+        .salad-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .quantity-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity-btn:hover {
+            background: #555;
+        }
+
+        .quantity-display {
+            font-size: 18px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .fixed-cart-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+        }
+
+        .fixed-cart-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .cart-text {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">← Back</a>
+    <a href="juice.html" class="juice-button">Juices</a>
+    
+    <div class="header">
+        <h1>Our Fresh Fruit Salads</h1>
+    </div>
+
+    <div class="content">
+        <!-- Tropical Paradise Salad -->
+        <div class="salad-card">
+            <div class="salad-info">
+                <h2 class="salad-name">Tropical Paradise Salad</h2>
+                <div class="salad-price">Rs.50.00</div>
+                <p class="salad-description">A vibrant mix of mango, pineapple, kiwi, and passion fruit, garnished with coconut flakes. This tropical delight brings the taste of paradise to your plate.</p>
+            </div>
+            <div class="salad-image-container">
+                <img src="../salad_images/TropicalSalad.jpeg" alt="Tropical Paradise Salad" class="salad-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Berry Blast Salad -->
+        <div class="salad-card">
+            <div class="salad-info">
+                <h2 class="salad-name">Berry Blast Salad</h2>
+                <div class="salad-price">Rs. 50.00</div>
+                <p class="salad-description">A delightful combination of strawberries, blueberries, raspberries, and blackberries, drizzled with honey and topped with mint leaves.</p>
+            </div>
+            <div class="salad-image-container">
+                <img src="../salad_images/berry.jpg" alt="Berry Blast Salad" class="salad-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Citrus Fusion Salad -->
+        <div class="salad-card">
+            <div class="salad-info">
+                <h2 class="salad-name">Citrus Fusion Salad</h2>
+                <div class="salad-price">Rs. 50.00</div>
+                <p class="salad-description">A refreshing blend of oranges, grapefruits, tangerines, and pomegranate seeds, perfect for a zesty and energizing treat.</p>
+            </div>
+            <div class="salad-image-container">
+                <img src="../salad_images/citrus.jpg" alt="Citrus Fusion Salad" class="salad-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Melon Medley Salad -->
+        <div class="salad-card">
+            <div class="salad-info">
+                <h2 class="salad-name">Melon Medley Salad</h2>
+                <div class="salad-price">Rs. 50.00</div>
+                <p class="salad-description">A sweet combination of watermelon, cantaloupe, and honeydew melon, garnished with fresh mint and a light honey-lime dressing.</p>
+            </div>
+            <div class="salad-image-container">
+                <img src="../salad_images/mmsalad.jpg" alt="Melon Medley Salad" class="salad-image">
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                    <span class="quantity-display">0</span>
+                    <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateQuantity(button, change) {
+            const quantityDisplay = button.parentElement.querySelector('.quantity-display');
+            let quantity = parseInt(quantityDisplay.textContent);
+            quantity = Math.max(0, quantity + change);
+            quantityDisplay.textContent = quantity;
+
+            // Get the salad name
+            const saladCard = button.closest('.salad-card');
+            const saladName = saladCard.querySelector('.salad-name').textContent;
+
+            // Update cart if quantity > 0
+            if (quantity > 0) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.name === saladName);
+
+                if (existingItem) {
+                    existingItem.quantity = quantity;
+                } else {
+                    cart.push({ name: saladName, quantity: quantity });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Initialize cart count when page loads
+        updateCartCount();
+    </script>
+
+    <!-- Fixed Cart Button -->
+    <a href="cart.html" class="fixed-cart-button">
+        <img src="../Shopping Cart.png" alt="Cart" class="cart-icon">
+        <span class="cart-text">CART</span>
+    </a>
+</body>
+</html>
