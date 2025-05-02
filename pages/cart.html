@@ -421,6 +421,11 @@
             // Clear cart after order
             localStorage.setItem('cart', '[]');
             displayCart();
+            
+            // Reset all quantity displays in product pages
+            localStorage.setItem('productQuantities', '{}');
+            
+            displayCart();
         }
 
         // Remove closePopup function as it's no longer needed
