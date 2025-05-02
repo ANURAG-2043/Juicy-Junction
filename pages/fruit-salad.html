@@ -424,20 +424,6 @@
         });
     </script>
 
-    // Add this function to initialize quantities
-    function initializeQuantities() {
-        const productQuantities = JSON.parse(localStorage.getItem('productQuantities')) || {};
-        document.querySelectorAll('.salad-card').forEach(card => {
-            const saladName = card.querySelector('.salad-name').textContent;
-            const quantityDisplay = card.querySelector('.quantity-display');
-            quantityDisplay.textContent = productQuantities[saladName] || 0;
-        });
-    }
-
-    // Call this when page loads
-    window.onload = function() {
-        initializeQuantities();
-    };
     <!-- Fixed Cart Button -->
     <a href="cart.html" class="fixed-cart-button">
         <img src="../Shopping Cart.png" alt="Cart" class="cart-icon">

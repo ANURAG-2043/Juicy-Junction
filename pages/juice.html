@@ -698,19 +698,5 @@
         };
     </script>
 
-        // Add this function to initialize quantities
-        function initializeQuantities() {
-            const productQuantities = JSON.parse(localStorage.getItem('productQuantities')) || {};
-            document.querySelectorAll('.juice-card').forEach(card => {
-                const juiceName = card.querySelector('.juice-name').textContent;
-                const quantityDisplay = card.querySelector('.quantity-display');
-                quantityDisplay.textContent = productQuantities[juiceName] || 0;
-            });
-        }
-
-        // Call this when page loads
-        window.onload = function() {
-            initializeQuantities();
-        };
 </body>
 </html>
