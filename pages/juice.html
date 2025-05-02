@@ -14,8 +14,9 @@
         
         .header {
             text-align: center;
-            padding: 40px 0;
+            padding: 80px 0 40px 0;
             background: #f8f8f8;
+            margin-top: 20px;
         }
 
         .header h1 {
@@ -74,77 +75,94 @@
 
         .juice-info {
             flex: 1;
-            padding: 30px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .juice-name {
-            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
             color: #333;
-            margin: 0 0 15px 0;
+        }
+
+        .juice-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .juice-description {
             font-size: 14px;
             color: #666;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 300;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .read-more {
+            color: #666;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
         }
 
         .juice-image-container {
-            width: 300px;
             position: relative;
-        }
-
-        .juice-price{
-            font-size: 20px;
-            color: #4CAF50;
-            font-weight: bold;
-            margin: 0 0 10px 0;
+            width: 40%;
+            min-width: 120px;
         }
 
         .juice-image {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
-            background-size: cover;
-            background-position: center;
+            display: block;
         }
 
         .quantity-controls {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            overflow: hidden;
         }
 
         .quantity-btn {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border: none;
-            background: #333;
-            color: white;
-            border-radius: 5px;
+            background: none;
+            color: #4CAF50;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .quantity-btn:hover {
-            background: #555;
+            background: #f5f5f5;
         }
 
         .quantity-display {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            min-width: 30px;
+            min-width: 32px;
             text-align: center;
         }
 
@@ -181,6 +199,83 @@
             font-weight: bold;
             font-size: 16px;
         }
+
+        @media screen and (max-width: 768px) {
+            .content {
+                padding: 0 10px;
+                margin: 20px auto;
+            }
+
+            .juice-card {
+                flex-direction: row; /* Keep as row even on mobile */
+                height: auto;
+                align-items: stretch;
+            }
+
+            .juice-info {
+                flex: 3;
+                padding: 15px;
+            }
+
+            .juice-name {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            .juice-price {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .juice-description {
+                font-size: 12px;
+                -webkit-line-clamp: 2;
+                margin-bottom: 2px;
+            }
+
+            .read-more {
+                font-size: 12px;
+            }
+
+            .juice-image-container {
+                flex: 2;
+                min-width: 100px;
+                max-width: 40%;
+                position: relative;
+            }
+
+            .quantity-controls {
+                bottom: 10px;
+                padding: 0;
+            }
+
+            .quantity-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+
+            .quantity-display {
+                font-size: 14px;
+                min-width: 28px;
+            }
+
+            .back-button,
+            .fruit-salad-button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .fixed-cart-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+            
+            .header {
+                padding: 60px 0 30px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -198,6 +293,7 @@
                 <h2 class="juice-name">Fresh Orange Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Freshly squeezed oranges bursting with natural sweetness and vitamin C. Our signature orange juice is made daily using only the finest, hand-picked oranges to ensure the perfect balance of flavor and refreshment.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/Orange.jpeg" alt="Orange Juice" class="juice-image">
@@ -215,6 +311,7 @@
                 <h2 class="juice-name">Fresh Apple Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Pure and crisp apple juice made from fresh, locally sourced apples. A perfect blend of sweet and tart flavors that makes for a refreshing drink any time of the day.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/apple.jpg" alt="Apple Juice" class="juice-image">
@@ -230,8 +327,9 @@
         <div class="juice-card">
             <div class="juice-info">
                 <h2 class="juice-name">Fresh Mango Juice</h2>
-b                 <div class="juice-price">Rs. 50.00</div>
+                <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Smooth and tropical mango juice made from perfectly ripened mangoes. Experience the rich, sweet taste of summer in every sip of this exotic refreshment.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/mango.jpg" alt="Mango Juice" class="juice-image">
@@ -249,6 +347,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Watermelon Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Cool and refreshing watermelon juice that captures summer in every sip. Made from perfectly ripe watermelons for maximum sweetness and hydration.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/watermelon.jpg" alt="Watermelon Juice" class="juice-image">
@@ -266,6 +365,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Pineapple Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Tropical pineapple juice bursting with exotic flavors. A perfect balance of sweet and tangy notes that transport you to a paradise island.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/pineapple.jpg" alt="Pineapple Juice" class="juice-image">
@@ -283,6 +383,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Grape Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Sweet and sophisticated grape juice made from premium grapes. Rich in antioxidants and natural sweetness.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/grapes.jpg" alt="Grape Juice" class="juice-image">
@@ -300,6 +401,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Strawberry Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Vibrant strawberry juice made from fresh, ripe berries. A sweet and refreshing drink packed with vitamin C and natural goodness.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/Strawberry.jpg" alt="Strawberry Juice" class="juice-image">
@@ -317,6 +419,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Pomegranate Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Rich and luxurious pomegranate juice loaded with antioxidants. A perfect blend of sweet and tart flavors.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/pomagranate.jpg" alt="Pomegranate Juice" class="juice-image">
@@ -334,6 +437,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Kiwi Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Exotic kiwi juice with a unique taste profile. Refreshing and packed with vitamins and minerals.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/kiwi.jpeg" alt="Kiwi Juice" class="juice-image">
@@ -351,6 +455,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Peach Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Sweet and aromatic peach juice that tastes like summer. Made from perfectly ripened peaches for the best natural flavor.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/peach.jpeg" alt="Peach Juice" class="juice-image">
@@ -368,6 +473,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Lychee Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Exotic lychee juice with a delicate floral aroma. A refreshing tropical drink with subtle sweetness.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/lychee.jpg" alt="Lychee Juice" class="juice-image">
@@ -385,6 +491,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Passion Fruit Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Exotic passion fruit juice with a perfect balance of sweet and tart flavors. A tropical delight that's both refreshing and energizing.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/juicing-passion-fruit-2.jpg" alt="Passion Fruit Juice" class="juice-image">
@@ -402,6 +509,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Guava Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Tropical guava juice rich in vitamins and natural sweetness. A refreshing drink with a unique tropical flavor profile.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/guava.jpg" alt="Guava Juice" class="juice-image">
@@ -419,6 +527,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Blackberry Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Rich and vibrant blackberry juice packed with antioxidants. A perfect blend of sweet and tart berry flavors.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/Blackberry.jpg" alt="Blackberry Juice" class="juice-image">
@@ -436,6 +545,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Coconut Water</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Pure and natural coconut water, straight from young coconuts. Nature's perfect hydration drink with essential electrolytes.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/coconut.jpeg" alt="Coconut Water" class="juice-image">
@@ -453,6 +563,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Carrot Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Nutritious carrot juice rich in beta-carotene and vitamins. A healthy and refreshing drink that's naturally sweet.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/carrot.jpg" alt="Carrot Juice" class="juice-image">
@@ -470,6 +581,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Cucumber Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Light and refreshing cucumber juice. Perfect for hot days and detox routines, with a clean and crisp taste.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/cucumber.webp" alt="Cucumber Juice" class="juice-image">
@@ -487,6 +599,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Beetroot Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Vibrant beetroot juice packed with nutrients and natural sweetness. A healthy drink that's both delicious and nutritious.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/Beet.jpg" alt="Beetroot Juice" class="juice-image">
@@ -504,6 +617,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Mixed Berry Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">A delightful blend of various berries creating a perfect harmony of sweet and tart flavors. Rich in antioxidants and natural goodness.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/mixed berries.jpg" alt="Mixed Berry Juice" class="juice-image">
@@ -521,6 +635,7 @@ b                 <div class="juice-price">Rs. 50.00</div>
                 <h2 class="juice-name">Fresh Ginger Lemon Juice</h2>
                 <div class="juice-price">Rs. 50.00</div>
                 <p class="juice-description">Zesty and invigorating blend of fresh ginger and lemon. A perfect immunity booster with a spicy kick.</p>
+                <span class="read-more">More</span>
             </div>
             <div class="juice-image-container">
                 <img src="../juices_images/Lemon.jpg" alt="Fresh Ginger Lemon Juice" class="juice-image">
@@ -533,6 +648,11 @@ b                 <div class="juice-price">Rs. 50.00</div>
         </div>
     </div>
 
+    <a href="cart.html" class="fixed-cart-button">
+        <img src="../Shopping Cart.png" alt="Cart" class="cart-icon">
+        <span class="cart-text">CART <span id="cart-count">0</span></span>
+    </a>
+    
     <script>
         function updateQuantity(button, change) {
             const quantityDisplay = button.parentElement.querySelector('.quantity-display');
@@ -568,52 +688,9 @@ b                 <div class="juice-price">Rs. 50.00</div>
         }
 
         // Initialize cart count when page loads
-        updateCartCount();
+        window.onload = function() {
+            updateCartCount();
+        };
     </script>
 </body>
 </html>
-
-<!-- Fixed Cart Button -->
-<a href="cart.html" class="fixed-cart-button">
-    <img src="../Shopping Cart.png" alt="Cart" class="cart-icon">
-    <span class="cart-text">CART</span>
-</a>
-</body>
-</html>
-
-<style>
-    @media screen and (max-width: 768px) {
-        .content {
-            padding: 0 10px;
-        }
-
-        .juice-card {
-            flex-direction: column;
-        }
-
-        .juice-info {
-            padding: 20px;
-        }
-
-        .juice-image-container {
-            width: 100%;
-            height: 250px;
-        }
-
-        .juice-image {
-            height: 250px;
-        }
-
-        .back-button,
-        .fruit-salad-button {
-            padding: 8px 15px;
-            font-size: 14px;
-        }
-
-        .fixed-cart-button {
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-        }
-    }
-</style>
