@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Juicy Junction - Juices</title>
     <style>
         body {
@@ -580,3 +580,40 @@ b                 <div class="juice-price">Rs. 50.00</div>
 </a>
 </body>
 </html>
+
+<style>
+    @media screen and (max-width: 768px) {
+        .content {
+            padding: 0 10px;
+        }
+
+        .juice-card {
+            flex-direction: column;
+        }
+
+        .juice-info {
+            padding: 20px;
+        }
+
+        .juice-image-container {
+            width: 100%;
+            height: 250px;
+        }
+
+        .juice-image {
+            height: 250px;
+        }
+
+        .back-button,
+        .fruit-salad-button {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .fixed-cart-button {
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+        }
+    }
+</style>
