@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicy Junction - Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background: #333;
+            color: white;
+            margin-bottom: 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn {
+            flex: 1;
+            background: #4CAF50;
+        }
+
+        .clear-all-btn {
+            flex: 1;
+            background: #dc3545;
+        }
+
+        .logout-btn {
+            background: #6c757d;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .toolbar {
+                padding: 60px 10px 10px 10px; /* Added top padding to accommodate logout button */
+            }
+
+            .refresh-btn,
+            .clear-all-btn {
+                min-width: calc(50% - 5px); /* 50% width minus half of the gap */
+                flex: 0 0 calc(50% - 5px);
+            }
+
+            .logout-btn {
+                width: auto;
+            }
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 0 10px;
+        }
+
+        .orders-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+
+        .order-card.completed {
+            opacity: 0.7;
+        }
+
+        .order-card.deleting {
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .order-timestamp {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .order-items {
+            margin-bottom: 12px;
+        }
+
+        .order-item {
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .order-total {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 10px 0;
+            text-align: right;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .complete-btn, .delete-btn {
+            flex: 1;
+            padding: 10px 0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .complete-btn {
+            background: #4CAF50;
+        }
+
+        .complete-btn:disabled {
+            background: #808080;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .status-pending, .status-in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .toolbar {
+                flex-direction: row;
+            }
+            
+            .content {
+                max-width: 800px;
+            }
+            
+            .orders-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .complete-btn, .delete-btn {
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <div class="toolbar">
+        <button class="action-btn logout-btn" onclick="logout()">Logout</button>
+        <button class="action-btn refresh-btn" onclick="loadOrders()">↻ Refresh Orders</button>
+        <button class="action-btn clear-all-btn" onclick="clearAllOrders()">Clear All Orders</button>
+    </div>
+
+    <div class="content">
+        <div class="orders-container" id="ordersContainer">
+            <!-- Orders will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        // Check if admin is logged in
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+            }
+        }
+    
+        // Call checkAuth when page loads
+        window.addEventListener('load', () => {
+            checkAuth();
+            loadOrders();
+        });
+    
+        // Add logout function
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const ordersContainer = document.getElementById('ordersContainer');
+            ordersContainer.innerHTML = '';
+    
+            if (orders.length === 0) {
+                ordersContainer.innerHTML = '<p style="text-align: center; width: 100%; padding: 20px 0;">No orders available.</p>';
+                return;
+            }
+    
+            orders.forEach(order => {
+                const card = document.createElement('div');
+                card.className = `order-card ${order.status === 'completed' ? 'completed' : ''}`;
+                card.setAttribute('data-order-number', order.orderNumber);
+                
+                const timestamp = new Date(order.timestamp);
+                const formattedDate = timestamp.toLocaleDateString();
+                const formattedTime = timestamp.toLocaleTimeString();
+                
+                // Determine status display
+                let statusDisplay = order.status ? order.status.toUpperCase() : 'IN-PROGRESS';
+                let statusClass = order.status === 'completed' ? 'status-completed' : 'status-in-progress';
+    
+                card.innerHTML = `
+                    <div class="order-header">
+                        <span class="order-number">#${order.orderNumber}</span>
+                        <span class="status-badge ${statusClass}">
+                            ${statusDisplay}
+                        </span>
+                    </div>
+                    <div class="order-timestamp">${formattedDate} ${formattedTime}</div>
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                ${item.name} × ${item.quantity}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">Total: ₹${parseFloat(order.total || 0).toFixed(2)}</div>
+                    <div class="button-container">
+                        <button 
+                            class="complete-btn" 
+                            onclick="completeOrder('${order.orderNumber}')"
+                            ${order.status === 'completed' ? 'disabled' : ''}
+                        >
+                            ${order.status === 'completed' ? 'Completed' : 'Mark as Complete'}
+                        </button>
+                        <button 
+                            class="delete-btn" 
+                            onclick="deleteOrder('${order.orderNumber}')"
+                        >
+                            Delete Order
+                        </button>
+                    </div>
+                `;
+    
+                ordersContainer.appendChild(card);
+            });
+        }
+
+        function deleteOrder(orderNumber) {
+            if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                const orderIndex = orders.findIndex(order => order.orderNumber === orderNumber);
+                
+                if (orderIndex !== -1) {
+                    // Find the card element
+                    const card = document.querySelector(`[data-order-number="${orderNumber}"]`);
+                    if (card) {
+                        // Add deleting class for fade effect
+                        card.classList.add('deleting');
+                        
+                        // Wait for animation to complete before removing
+                        setTimeout(() => {
+                            orders.splice(orderIndex, 1);
+                            localStorage.setItem('orders', JSON.stringify(orders));
+                            loadOrders(); // Refresh the display
+                        }, 500); // Match this with the CSS transition duration
+                    } else {
+                        // If card element not found, still delete the order
+                        orders.splice(orderIndex, 1);
+                        localStorage.setItem('orders', JSON.stringify(orders));
+                        loadOrders(); // Refresh the display
+                    }
+                }
+            }
+        }
+
+        function completeOrder(orderNumber) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const orderIndex = orders.findIndex(order => order.orderNumber === orderNumber);
+            
+            if (orderIndex !== -1) {
+                // Update the order status in localStorage
+                orders[orderIndex].status = 'completed';
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // Find the card and update it
+                const card = document.querySelector(`[data-order-number="${orderNumber}"]`);
+                if (card) {
+                    // Add completed class
+                    card.classList.add('completed');
+                    
+                    // Update status badge
+                    const statusBadge = card.querySelector('.status-badge');
+                    if (statusBadge) {
+                        statusBadge.className = 'status-badge status-completed';
+                        statusBadge.textContent = 'COMPLETED';
+                    }
+                    
+                    // Update button
+                    const completeBtn = card.querySelector('.complete-btn');
+                    if (completeBtn) {
+                        completeBtn.disabled = true;
+                        completeBtn.textContent = 'Completed';
+                    }
+                } else {
+                    // If the card is not found, reload all orders
+                    loadOrders();
+                }
+            }
+        }
+
+        // Refresh orders every 30 seconds
+        setInterval(loadOrders, 30000);
+
+        function clearAllOrders() {
+            if (confirm('Are you sure you want to clear all orders? This action cannot be undone.')) {
+                localStorage.setItem('orders', '[]');
+                loadOrders(); // Refresh the display
+            }
+        }
+    </script>
+</body>
+</html>
